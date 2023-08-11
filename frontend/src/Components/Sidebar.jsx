@@ -28,7 +28,7 @@ export default function Sidebar() {
       </Box>
       <Box>
       </Box>
-      <Box sx={{flex:'80%',overflowY:'scroll',background:'#fcf7f7',flexDirection:'column',display:'flex',margin:'10px',borderRadius:'10px'}}>
+      <Box sx={{flex:'80%',overflowY:'scroll',background:'#fcf7f7',flexDirection:'column',display:'flex',margin:'10px',borderRadius:'20px'}}>
      <UserCard/>
      <UserCard/>
      <UserCard/>
