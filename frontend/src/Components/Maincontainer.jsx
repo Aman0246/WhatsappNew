@@ -3,6 +3,8 @@ import Box from '@mui/material/Box'
 import styled from '@emotion/styled'
 import Sidebar from './Sidebar'
 import WorkArea from './WorkArea'
+import WelcomePage from './WelcomePage'
+import CreateGroups from '../Pages/CreateGroups'
 export default function Maincontainer() {
     const Maincontainer = styled(Box)({
   backgroundColor:'#f4f5f8',
@@ -17,7 +19,11 @@ export default function Maincontainer() {
   return (
     <Maincontainer>
       <Sidebar />
-      <WorkArea />
+      {/* <WorkArea /> */}
+      <CreateGroups/>
+      {/* <WelcomePage/> */}
     </Maincontainer>
-  )
+)
 }
+
+      
