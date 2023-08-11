@@ -9,7 +9,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import UserCard from './UserCard';
 export default function Sidebar() {
   return (
-    <Box sx={{ flex: 0.3,display:'flex',flexDirection:'column' }} className="bg-blue-100 rounded-xl" >
+    <Box sx={{ flex: 0.3,display:'flex',flexDirection:'column' }} className=" rounded-xl" >
       <Box sx={{ display: 'flex', backgroundColor: 'white', borderRadius: '15px', padding: "8px 5px", margin: '10px', justifyContent: 'space-between' }}>
 
         <IconButton><AccountCircleOutlinedIcon /></IconButton>
@@ -28,7 +28,7 @@ export default function Sidebar() {
       </Box>
       <Box>
       </Box>
-      <Box sx={{flex:'80%',overflowY:'scroll',background:'#fcf7f7',flexDirection:'column',display:'flex'}}>
+      <Box sx={{flex:'80%',overflowY:'scroll',background:'#fcf7f7',flexDirection:'column',display:'flex',margin:'10px',borderRadius:'10px'}}>
      <UserCard/>
      <UserCard/>
      <UserCard/>
