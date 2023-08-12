@@ -10,13 +10,15 @@ const LoginWrapper=styled(Box)({
   backgroundColor:'aliceblue',
   justifyContent:'center',
   alignItems:'center',
+  margin:'auto'
 })
 
 export default function Login() {
   return (
     <LoginWrapper>
-    
-      <Box sx={{backgroundColor:'white',opacity:.8,width:'30%','@media (max-width:763px)': {width:'80%'},paddingBottom:5}}> 
+
+  
+      <Box sx={{backgroundColor:'white',boxShadow:'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',borderRadius:'20px',opacity:.8,width:'30%','@media (max-width:763px)': {width:'80%'},paddingBottom:5}}> 
         <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:5}}>
         <TextField sx={{marginTop:5,width:'60%'}} name='Email'  type='email' color='success' id="standard-basic" label="Email" variant="standard" />
         <TextField sx={{width:'60%'}} color='success' name='password'  type='Password' id="standard-basic" label="Password" variant="standard" />
@@ -26,7 +28,7 @@ export default function Login() {
         Login
       </Button>
       Or
-      <Button  sx={{backgroundColor:'white',color:'#b85959',"&":{border:"1px solid gray"}}}> <img style={{width:"1.5rem",height:'1.5rem',marginRight:'5px'}} src="https://w7.pngwing.com/pngs/543/934/png-transparent-google-app-logo-google-logo-g-suite-google-text-logo-circle.png" alt="GoogleButton"  />Continue Width Google</Button>
+      <Button  sx={{backgroundColor:'white',      boxShadow:'rgba(0, 0, 0, 0.35) 0px 5px 15px',color:'#b85959',"&":{border:"1px solid gray"}}}> <img style={{width:"1.5rem",height:'1.5rem',marginRight:'5px'}} src="https://w7.pngwing.com/pngs/543/934/png-transparent-google-app-logo-google-logo-g-suite-google-text-logo-circle.png" alt="GoogleButton"  />Continue With Google</Button>
       <Box sx={{cursor:'pointer',fontWeight:600}}>New User ? Register</Box>
         </Box>
         </Box>

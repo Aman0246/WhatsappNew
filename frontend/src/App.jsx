@@ -8,8 +8,7 @@ function App() {
 
   return (
     <Box className="flex justify-center items-center  h-screen "style={{  backgroundColor:'#dddedd'}}>
-   {/* <Maincontainer/> */}
-   <Login></Login>
+   <Maincontainer/>
     </Box>
   )
 }
