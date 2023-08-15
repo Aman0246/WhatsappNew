@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { Box, Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {auth,provider} from "../Firebase/googleLogin"
 import {signInWithPopup } from "firebase/auth";
 import { motion, AnimatePresence } from "framer-motion"
@@ -22,6 +22,7 @@ const LoginWrapper=styled(Box)({
 
 export default function Login() {
   const [inputdata,setinputdata]=useState({})
+  const navigate=useNavigate()
   const handleChange=(e)=>{
     setinputdata({...inputdata,[e.target.name]:e.target.value})
   
@@ -30,10 +31,16 @@ export default function Login() {
     signInWithPopup(auth, provider)
     .then(async(result) => {
       await axios.post('/googleLogin',result.user).then((e)=>{
-        console.log(e)
+        if(e.data.status==true){
+          toast.success(e.data.message)
+          navigate('/welcomePage')
+        }
+        else toast('server down')
+// console.log(e)
       })
       }).catch((error) => {
-      console.log(error)
+        toast('server down',error)
+        
       });
   }
  
