@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { storage } from '../Firebase/googleLogin'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import toast from 'react-hot-toast';
+import {signInWithPopup } from "firebase/auth";
+import {auth,provider} from "../Firebase/googleLogin"
 
 const LoginWrapper = styled(Box)({
   backgroundColor: '#f4f5f8',
@@ -28,15 +31,26 @@ export default function Registration() {
   }
  
   const upload = async() => {
+    if(!formdata.name||!formdata.email||!formdata.password)return toast.error("Empty field")
     const form=new FormData()
      form.append('file',imageUpload)
      form.append('name',formdata.name)
      form.append('email',formdata.email)
      form.append('password',formdata.password)
-     await axios.post("/register",form).then((e)=>{
-      console.log(e)
-     })
-
+     try {
+     await axios.post("/register",form).then(async(e)=>{
+   console.log(e)
+     
+        if(e.status===201){return toast.success(e.data.message)}
+        else toast.error('server Down')
+      } )
+      } catch (error) {
+        if(error.response.data
+          .message)
+       return toast.error(error.response.data
+          .message)
+       
+      }
     // console.log(imageUpload)
     // const imgRef = ref(storage, `DisplayProfile/${imageUpload.name + new Date()}`)
     // console.log(imgRef)
@@ -49,6 +63,18 @@ export default function Registration() {
   }
 
 
+  const handleGoogleLogin=async()=>{
+    signInWithPopup(auth, provider)
+    .then(async(result) => {
+      await axios.post('/googleLogin',result.user).then((e)=>{
+// console.log(e)
+      })
+      }).catch((error) => {
+      console.log(error)
+        
+      });
+  
+  }
   return (
     <LoginWrapper>
       <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0 }} transition={{ ease: "anticipate", duration: ".2" }} style={{ backgroundColor: 'white', boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px', borderRadius: '20px', opacity: .8, width: '30%', '@media (max-width:763px)': { width: '80%' }, paddingBottom: 5 }}>
@@ -62,7 +88,7 @@ export default function Registration() {
               Register
             </Button>
             Or
-            <Button sx={{ backgroundColor: 'white', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', color: '#2b8687', fontWeight: 600, "&": { border: "1px solid gray", borderRadius: '50px' } }}> <img style={{ width: "1.5rem", height: '1.5rem', marginRight: '5px' }} src="https://w7.pngwing.com/pngs/543/934/png-transparent-google-app-logo-google-logo-g-suite-google-text-logo-circle.png" alt="GoogleButton" />Continue With Google</Button>
+            <Button onClick={handleGoogleLogin} sx={{ backgroundColor: 'white', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', color: '#2b8687', fontWeight: 600, "&": { border: "1px solid gray", borderRadius: '50px' } }}> <img style={{ width: "1.5rem", height: '1.5rem', marginRight: '5px' }} src="https://w7.pngwing.com/pngs/543/934/png-transparent-google-app-logo-google-logo-g-suite-google-text-logo-circle.png" alt="GoogleButton" />Continue With Google</Button>
             <Box sx={{ fontWeight: 600 }}>Old User ?<Link to={'/'}> <span style={{ color: "#309899", cursor: 'pointer' }}> Login</span></Link></Box>
           </Box>
         </Box>
