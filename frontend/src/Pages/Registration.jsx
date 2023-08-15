@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { Box, Button, TextField } from '@mui/material'
 import { motion } from "framer-motion"
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { storage } from '../Firebase/googleLogin'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
@@ -23,6 +23,7 @@ const LoginWrapper = styled(Box)({
 })
 
 export default function Registration() {
+  const navigate=useNavigate()
   const [imageUpload, setimageUpload] = useState(null)
   const [formdata, setformdata] = useState({})
   const handleChange=(e)=>{
@@ -38,10 +39,10 @@ export default function Registration() {
      form.append('email',formdata.email)
      form.append('password',formdata.password)
      try {
-     await axios.post("/register",form).then(async(e)=>{
-   console.log(e)
-     
-        if(e.status===201){return toast.success(e.data.message)}
+     await axios.post("/register",form).then(async(e)=>{  
+        if(e.status===201){ toast.success(e.data.message)
+          navigate('/login')
+        }
         else toast.error('server Down')
       } )
       } catch (error) {
@@ -67,10 +68,15 @@ export default function Registration() {
     signInWithPopup(auth, provider)
     .then(async(result) => {
       await axios.post('/googleLogin',result.user).then((e)=>{
+        if(e.data.data.status==true){
+          toast.success(e.data.data.message)
+          navigate('/welcomePage')
+        }
+        else toast('server down')
 // console.log(e)
       })
       }).catch((error) => {
-      console.log(error)
+        toast('server down',error)
         
       });
   
