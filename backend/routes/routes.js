@@ -1,5 +1,5 @@
 const express=require('express')
-const { registration } = require('../Controllers/UserController')
+const { registration,login,googleLogin } = require('../Controllers/UserController')
 const routes=express.Router()
 //--------------------------------------------------------
 const multer  = require('multer')
@@ -16,5 +16,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 //--------------------------------------------------------
 routes.post("/register",upload.single('file'),registration)
+routes.post("/login",login)
+routes.post("/googleLogin",googleLogin)
+
 
 module.exports={routes}
