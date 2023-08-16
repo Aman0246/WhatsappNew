@@ -41,7 +41,7 @@ export default function Registration() {
      try {
      await axios.post("/register",form).then(async(e)=>{  
         if(e.status===201){ toast.success(e.data.message)
-          navigate('/login')
+          navigate('/')
         }
         else toast.error('server Down')
       } )
@@ -69,6 +69,7 @@ export default function Registration() {
     .then(async(result) => {
       await axios.post('/googleLogin',result.user).then((e)=>{
         if(e.data.data.status==true){
+          localStorage.setItem("token",e.data.token)
           toast.success(e.data.data.message)
           navigate('/welcomePage')
         }

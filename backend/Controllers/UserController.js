@@ -10,7 +10,7 @@ const registration = async (req, res) => {
   try {
     let url;
     let { name, email, password } = req.body;
-    console.log(req.body);
+    
     if (!email || !password || !name)
       return res.status(400).send({ status: false, message: "empty field" });
     
@@ -21,7 +21,7 @@ const registration = async (req, res) => {
       return res
         .status(400)
         .send({ status: false, message: "email already used" });
-    console.log("helloe");
+    
     if (req.file) {
       url = await uploadFile(req.file);
     } else {
@@ -47,7 +47,7 @@ const registration = async (req, res) => {
 //login
 const login = async (req, res) => {
   try {
-  console.log(req.body,"a")
+
   const { email, password } = req.body;
   if (!email || !password)
     return res.status(400).send({ status: false, message: "empty field" });      
@@ -55,7 +55,6 @@ const login = async (req, res) => {
     if(!checkvalidemail) return res.status(400).send({ status: false, message: "invalid email" });
     let checkemail=await userModel.findOne({email})
     if(!checkemail) return res.status(404).send({status:false,message:"Register first"})
-    console.log(checkemail.password)
     var result = await compare(password , checkemail.password)
   if(!result)return res.status(400).send({status:false,message:"Wrong Password"})
   var token = jwt.sign({ id:checkemail._id},process.env.JWT, { expiresIn: '1h' });
@@ -89,4 +88,18 @@ const googleLogin = async (req, res) => {
 };
 
 
-module.exports = { registration,login,googleLogin};
+//get all user
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await userModel.find(); // Fetch all users from the database
+    if(users.length > 0){
+
+      res.status(200).send({ status:true , message: 'All users data' , data:users });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching users', error: error.message });
+  }
+};
+
+
+module.exports = { registration,login,googleLogin,getAllUsers};

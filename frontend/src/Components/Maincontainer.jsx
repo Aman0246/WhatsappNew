@@ -17,7 +17,6 @@ export default function Maincontainer() {
   display: "flex",
   borderRadius:'20px',
   backgroundColor:'aliceblue',
-
     })
     
   return (
