@@ -32,6 +32,7 @@ export default function Login() {
     .then(async(result) => {
       await axios.post('/googleLogin',result.user).then((e)=>{
         if(e.data.status==true){
+          localStorage.setItem("token",e.data.token)
           toast.success(e.data.message)
           navigate('/welcomePage')
         }
@@ -47,7 +48,10 @@ export default function Login() {
 const handleLogin=async()=>{
   try {
     await axios.post("/login",inputdata).then(async(e)=>{
-       if(e.status===200){return toast.success(e.data.message)}
+      // console.log(e.data.token)  
+       if(e.status===200){toast.success(e.data.message) 
+        localStorage.setItem("token",e.data.token)
+        navigate('/welcomePage')}
        else toast.error('server Down')
      } )
      } catch (error) {
