@@ -56,8 +56,8 @@ const login = async (req, res) => {
     let checkemail=await userModel.findOne({email})
     if(!checkemail) return res.status(404).send({status:false,message:"Register first"})
     var result = await compare(password , checkemail.password)
-  if(!result)return res.status(400).send({status:false,message:"Wrong Password"})
-  var token = jwt.sign({ id:checkemail._id},process.env.JWT, { expiresIn: '1h' });
+  if(!result)return res.status(400).send({status:false,message:"Wrong Password"}) 
+  var token = jwt.sign({ id:checkemail._id},process.env.JWT, { expiresIn: '10h' });
    res.status(200).send({status:true,message:"Successfull",token:token})
   } catch (error) {
     return res
